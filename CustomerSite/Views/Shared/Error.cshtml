@@ -1,0 +1,43 @@
+﻿@model Marketplace.SaaS.Accelerator.CustomerSite.ViewModels.ExceptionViewModel
+
+@{
+    ViewBag.Title = "Error";
+}
+<link href="https://fonts.googleapis.com/css?family=Quicksand:700" rel="stylesheet">
+<link href="~/css/Error/font-awesome.min.css" rel="stylesheet" />
+<link href="~/css/Error/style.css" rel="stylesheet" />
+<style>
+    body {
+        padding-top: 215px !important;
+    }
+</style>
+
+@if (Model != null)
+{
+    <div class="card bg-light mt-5 mb-5 text-center">
+        <h1>oops!</h1>
+        <div class="card-body">
+            <h5 class="card-title">
+                Error 500 : @Model.Exception.Message
+            </h5>
+
+            @if (Model.ShowExceptionDetailForDeveloper)
+            {
+                @if (Model.Exception.InnerException != null)
+                {
+                    <p class="card-text">@Model.Exception.InnerException.Message</p>
+                }
+
+                <div class="text-danger d-block">
+                    <p>@Model.Exception.StackTrace</p>
+                    @if (Model.Exception.InnerException != null)
+                    {
+                        <p>Inner:</p>
+                        <p>@Model.Exception.InnerException.StackTrace</p>
+                    }
+                </div>
+            }
+            <a asp-action="Index" asp-controller="Home" class="cm-button-error">Go To Home Page</a>
+        </div>
+    </div>
+}
